@@ -59,6 +59,12 @@ declare namespace Cloudflare {
     OPENROUTER_API_KEY?: string;
     // Optional OpenRouter model slug override (defaults in openrouter.ts).
     OPENROUTER_MODEL?: string;
+    // Fork: OpenAI-compatible chat endpoint for SAM (e.g. Cloudflare
+    // Workers AI `.../ai/v1` + token + model id). Wins over OpenRouter
+    // when the key is set. See chatAgentModel.ts.
+    CHAT_AGENT_BASE_URL?: string;
+    CHAT_AGENT_API_KEY?: string;
+    CHAT_AGENT_MODEL?: string;
   }
 }
 
@@ -71,6 +77,7 @@ interface ImportMetaEnv {
   readonly TURNSTILE_SITE_KEY?: string;
   readonly VITE_E2E_DOMAIN_FIXTURES?: string;
   readonly VITE_E2E_KEYWORD_FIXTURES?: string;
+  readonly SELFHOST_MANAGED_OAUTH?: string;
 }
 
 interface ImportMeta {
