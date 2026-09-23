@@ -25,11 +25,15 @@ const EAGER_DENYLIST: Array<{ pattern: RegExp; expected: string }> = [
       "the /api/autumn route's lazy handler",
   },
   {
-    pattern:
-      /node_modules\/(workers-ai-provider|@ai-sdk\/(openai|anthropic))\//,
+    // Fork: @ai-sdk/openai is intentionally eager — SAM's OpenAI-compatible
+    // path (Workers AI) constructs it synchronously in Think's getModel hook,
+    // which cannot await a dynamic import. Only Think's dead default
+    // provider paths stay denylisted.
+    pattern: /node_modules\/(workers-ai-provider|@ai-sdk\/anthropic)\//,
     expected:
       "aliased to workers-ai-provider-stub.ts (@cloudflare/think's default " +
-      "provider path is dead code — our agents construct OpenRouter models)",
+      "provider path is dead code — our agents construct OpenRouter or " +
+      "OpenAI-compatible models)",
   },
   {
     pattern: /node_modules\/just-bash\//,
