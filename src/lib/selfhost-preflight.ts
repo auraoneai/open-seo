@@ -195,20 +195,23 @@ function checkOptionalFeatures(env: EnvRecord, items: PreflightItem[]): void {
     });
   }
 
+  const chatKeySet = Boolean(
+    get(env, "CHAT_AGENT_API_KEY") ?? get(env, "OPENROUTER_API_KEY"),
+  );
   items.push(
-    get(env, "OPENROUTER_API_KEY")
+    chatKeySet
       ? {
           key: "ai",
           name: "AI features",
           level: "ok",
-          message: "OPENROUTER_API_KEY set",
+          message: "chat-model key set",
         }
       : {
           key: "ai",
           name: "AI features",
           level: "info",
           message:
-            "OPENROUTER_API_KEY not set (optional) — SAM, the in-app SEO agent, is disabled.",
+            "CHAT_AGENT_API_KEY / OPENROUTER_API_KEY not set (optional) — SAM, the in-app SEO agent, is disabled.",
         },
   );
 }

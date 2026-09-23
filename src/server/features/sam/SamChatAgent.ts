@@ -33,7 +33,7 @@ import {
   SamTelemetry,
   type SamTurnStats,
 } from "@/server/features/sam/samTurnTelemetry";
-import { buildChatAgentModel } from "@/server/lib/openrouter";
+import { buildChatAgentModel } from "@/server/lib/chatAgentModel";
 import {
   getEnvValueSync,
   isHostedServerAuthMode,
@@ -195,13 +195,17 @@ export class SamChatAgent extends Think {
   }
 
   private buildModel(reasoningEffort: "max" | "low") {
-    const apiKey = getEnvValueSync(this.env, "OPENROUTER_API_KEY");
-    if (!apiKey) {
-      throw new Error("OPENROUTER_API_KEY is required for the SAM agent");
-    }
+    // Fork: OpenAI-compatible endpoint (Workers AI) wins when configured,
+    // else the upstream OpenRouter path. The builder throws when neither key
+    // is set.
     return buildChatAgentModel(
-      apiKey,
-      getEnvValueSync(this.env, "OPENROUTER_MODEL"),
+      {
+        OPENROUTER_API_KEY: getEnvValueSync(this.env, "OPENROUTER_API_KEY"),
+        OPENROUTER_MODEL: getEnvValueSync(this.env, "OPENROUTER_MODEL"),
+        CHAT_AGENT_BASE_URL: getEnvValueSync(this.env, "CHAT_AGENT_BASE_URL"),
+        CHAT_AGENT_API_KEY: getEnvValueSync(this.env, "CHAT_AGENT_API_KEY"),
+        CHAT_AGENT_MODEL: getEnvValueSync(this.env, "CHAT_AGENT_MODEL"),
+      },
       reasoningEffort,
     );
   }

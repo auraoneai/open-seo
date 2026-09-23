@@ -273,6 +273,11 @@ const dataEnv = {
   GOOGLE_CLIENT_SECRET: optionalSecret("GOOGLE_CLIENT_SECRET"),
   OPENROUTER_API_KEY: optionalSecret("OPENROUTER_API_KEY"),
   OPENROUTER_MODEL: optionalVar("OPENROUTER_MODEL"),
+  // Fork: OpenAI-compatible chat endpoint for SAM (Workers AI). Wins over
+  // OpenRouter when the key is set. See src/server/lib/chatAgentModel.ts.
+  CHAT_AGENT_BASE_URL: optionalVar("CHAT_AGENT_BASE_URL"),
+  CHAT_AGENT_API_KEY: optionalSecret("CHAT_AGENT_API_KEY"),
+  CHAT_AGENT_MODEL: optionalVar("CHAT_AGENT_MODEL"),
   AUTUMN_SECRET_KEY: optionalSecret("AUTUMN_SECRET_KEY"),
   AUTUMN_WEBHOOK_SECRET: optionalSecret("AUTUMN_WEBHOOK_SECRET"),
   DUB_API_KEY: optionalSecret("DUB_API_KEY"),
