@@ -25,6 +25,7 @@ export default defineConfig(({ mode }) => {
     envPrefix: [
       "VITE_",
       "AUTH_MODE",
+      "SELFHOST_MANAGED_OAUTH",
       "BYPASS_EMAIL_VERIFICATION",
       "POSTHOG_PUBLIC_KEY",
       "POSTHOG_HOST",

@@ -147,7 +147,11 @@ function AiPage() {
               </section>
             </div>
 
-            {getAuthMode(import.meta.env.AUTH_MODE) === "cloudflare_access" ? (
+            {/* Fork: deploy:selfhost enables Managed OAuth itself (see
+                scripts/selfhost-managed-oauth.mjs); SELFHOST_MANAGED_OAUTH=1
+                hides this one-time setup warning. */}
+            {getAuthMode(import.meta.env.AUTH_MODE) === "cloudflare_access" &&
+            import.meta.env.SELFHOST_MANAGED_OAUTH !== "1" ? (
               <div className="alert alert-warning mt-8 text-sm" role="alert">
                 <ShieldAlert className="size-4 shrink-0" />
                 <span>
