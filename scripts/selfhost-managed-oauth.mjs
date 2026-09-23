@@ -90,6 +90,11 @@ body.oauth_configuration = {
   dynamic_client_registration: {
     allow_any_on_localhost: true,
     allow_any_on_loopback: true,
+    // ChatGPT custom connectors (fixed + per-connection callbacks).
+    allowed_uris: [
+      "https://chatgpt.com/connector_platform_oauth_redirect",
+      "https://chatgpt.com/connector/oauth/*",
+    ],
   },
   grant: { session_duration: "336h", access_token_lifetime: "15m" },
 };
